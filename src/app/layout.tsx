@@ -7,6 +7,7 @@ export const metadata: Metadata = {
 };
 
 import { Vazirmatn } from "next/font/google";
+import { AppContextProvider } from "@/context/store";
 
 const font = Vazirmatn({ subsets: ["arabic"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={font.className}>{children}</body>
+      <body className={font.className}>
+        <AppContextProvider>{children}</AppContextProvider>
+      </body>
     </html>
   );
 }
