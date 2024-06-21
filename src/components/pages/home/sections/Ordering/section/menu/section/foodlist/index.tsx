@@ -1,10 +1,12 @@
 "use client";
 import FoodCard from "@/components/basic/card/food-card";
-import { AppContext } from "@/context/store";
+import { AddToBasket, RemoveFromBasket } from "@/context/feature/basket.slice";
 import React, { useContext, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const FoodList = () => {
-  const { basket, setBasket } = useContext(AppContext);
+  // const { basket, setBasket } = useContext(AppContext);
+  const dispatch = useDispatch();
 
   const [state, setstate] = useState([]);
   useEffect(() => {
@@ -20,47 +22,55 @@ const FoodList = () => {
     setstate(categories);
   };
 
-  const handleAddToBasket = (item: any) => {
-    let currentItem = basket.filter((x) => x.id === item.id);
+  // const handleAddToBasket = (item: any) => {
+  //   let currentItem = basket.filter((x) => x.id === item.id);
 
-    const copyBasket = [...basket];
+  //   const copyBasket = [...basket];
 
-    if (currentItem.length > 0) {
-      for (const elem of copyBasket) {
-        if (elem.id === item.id) {
-          if (elem.count) {
-            elem.count += 1;
-          } else {
-            elem.count = 1;
-          }
-        }
-      }
+  //   if (currentItem.length > 0) {
+  //     for (const elem of copyBasket) {
+  //       if (elem.id === item.id) {
+  //         if (elem.count) {
+  //           elem.count += 1;
+  //         } else {
+  //           elem.count = 1;
+  //         }
+  //       }
+  //     }
 
-      setBasket(copyBasket);
-      return;
-    }
+  //     setBasket(copyBasket);
+  //     return;
+  //   }
 
-    item.count = 1;
-    setBasket([...basket, item]);
+  //   item.count = 1;
+  //   setBasket([...basket, item]);
+  // };
+  // const handleRemoveFromBasket = (item: any) => {
+  //   // 1. is exist !
+
+  //   const currentItem = basket.filter((x) => x.id === item.id);
+
+  //   if (currentItem.length > 0) {
+  //     let copyBasket = [...basket];
+  //     for (const elem of copyBasket) {
+  //       if (elem.id === item.id) {
+  //         if (elem.count > 1) {
+  //           elem.count -= 1;
+  //         } else {
+  //           copyBasket = copyBasket.filter((x) => x.id !== item.id);
+  //         }
+  //       }
+  //     }
+  //     setBasket(copyBasket);
+  //   }
+  // };
+
+  const handleAddToBasket = (item) => {
+    dispatch(AddToBasket(item));
   };
-  const handleRemoveFromBasket = (item: any) => {
-    // 1. is exist !
 
-    const currentItem = basket.filter((x) => x.id === item.id);
-
-    if (currentItem.length > 0) {
-      let copyBasket = [...basket];
-      for (const elem of copyBasket) {
-        if (elem.id === item.id) {
-          if (elem.count > 1) {
-            elem.count -= 1;
-          } else {
-            copyBasket = copyBasket.filter((x) => x.id !== item.id);
-          }
-        }
-      }
-      setBasket(copyBasket);
-    }
+  const handleRemoveFromBasket = (item) => {
+    dispatch(RemoveFromBasket(item));
   };
 
   return (

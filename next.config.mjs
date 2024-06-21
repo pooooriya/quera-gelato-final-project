@@ -5,7 +5,8 @@ const nextConfig = {
             hostname:"static.delino.com",
             protocol:"https"
         }]
-    }
+    },
+    reactStrictMode:false,
 };
 
 export default nextConfig;

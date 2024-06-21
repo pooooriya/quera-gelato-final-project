@@ -1,12 +1,10 @@
 "use client";
 import BasketCard from "@/components/basic/card/basket-card";
-import { AppContext } from "@/context/store";
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 
 const Basket = () => {
-  const { basket } = useContext(AppContext);
-
-  console.log(basket.reduce((acc, cur) => (acc += cur.count), 0));
+  const basket = useSelector((elm) => elm.basket);
   return (
     <div
       className="p-2 bg-white

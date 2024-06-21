@@ -1,14 +1,10 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { configureStore } from "@reduxjs/toolkit";
+import { BasketSlice } from "./feature/basket.slice";
 
-export const AppContext = createContext({});
-
-export const AppContextProvider = ({ children }) => {
-  const [basket, setBasket] = useState([]);
-  return (
-    <AppContext.Provider value={{ basket, setBasket }}>
-      {children}
-    </AppContext.Provider>
-  );
-};
+export const Store = configureStore({
+  reducer: {
+    basket: BasketSlice.reducer,
+  },
+});
